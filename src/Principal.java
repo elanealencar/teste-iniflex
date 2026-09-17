@@ -206,5 +206,13 @@ public class Principal {
         funcionarios.stream()
                 .sorted(Comparator.comparing(Funcionario::getNome))
                 .forEach(funcionario -> System.out.println(funcionario.getNome()));
+
+        // 3.11 - Imprimir o total dos salários
+        BigDecimal totalSalarios = funcionarios.stream()
+            .map(Funcionario::getSalario)
+            .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        System.out.println("\n--- Total dos salários ---");
+        System.out.println("Total: " + formatoSalario.format(totalSalarios));
     }
 }
