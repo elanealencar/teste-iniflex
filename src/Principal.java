@@ -8,9 +8,10 @@ import java.util.Locale;
 import java.math.RoundingMode;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.time.Period;
+import java.util.Comparator;
 
 public class Principal {
-
     public static void main(String[] args) {
         List<Funcionario> funcionarios = new ArrayList<>();
 
@@ -179,6 +180,24 @@ public class Principal {
                         + funcionario.getDataNascimento().format(formatoData)
                 );
             }
+        }
+
+        // 3.9 - Imprimir funcionário com maior idade
+        Funcionario funcionarioMaisVelho = funcionarios.stream()
+                .min(Comparator.comparing(Funcionario::getDataNascimento))
+                .orElse(null);
+
+        if (funcionarioMaisVelho != null) {
+            int idade = Period.between(
+                    funcionarioMaisVelho.getDataNascimento(),
+                    LocalDate.now()
+            ).getYears();
+
+            System.out.println("\n--- Funcionário com maior idade ---");
+            System.out.println(
+                    "Nome: " + funcionarioMaisVelho.getNome()
+                    + " | Idade: " + idade + " anos"
+            );
         }
     }
 }
