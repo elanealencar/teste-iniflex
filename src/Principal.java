@@ -214,5 +214,22 @@ public class Principal {
 
         System.out.println("\n--- Total dos salários ---");
         System.out.println("Total: " + formatoSalario.format(totalSalarios));
+
+        // 3.12 - Imprimir quantos salários mínimos ganha cada funcionário
+        BigDecimal salarioMinimo = new BigDecimal("1212.00");
+
+        System.out.println("\n--- Salários mínimos por funcionário ---");
+
+        for (Funcionario funcionario : funcionarios) {
+            BigDecimal quantidadeSalariosMinimos = funcionario.getSalario()
+                    .divide(salarioMinimo, 2, RoundingMode.HALF_UP);
+
+            System.out.println(
+                    funcionario.getNome()
+                    + ": "
+                    + quantidadeSalariosMinimos
+                    + " salários mínimos"
+            );
+        }
     }
 }
