@@ -2,6 +2,9 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.text.NumberFormat;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 public class Principal {
 
@@ -100,6 +103,24 @@ public class Principal {
 
         funcionarios.removeIf(funcionario -> funcionario.getNome().equals("João"));
 
-        System.out.println("Quantidade de funcionários: " + funcionarios.size());
+        DateTimeFormatter formatoData = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        NumberFormat formatoSalario = NumberFormat.getNumberInstance(
+                new Locale("pt", "BR")
+        );
+
+        formatoSalario.setMinimumFractionDigits(2);
+        formatoSalario.setMaximumFractionDigits(2);
+
+        System.out.println("\n--- Funcionários ---");
+
+        for (Funcionario funcionario : funcionarios) {
+            System.out.println(
+                    "Nome: " + funcionario.getNome()
+                    + " | Data de nascimento: " + funcionario.getDataNascimento().format(formatoData)
+                    + " | Salário: " + formatoSalario.format(funcionario.getSalario())
+                    + " | Função: " + funcionario.getFuncao()
+            );
+        }
     }
 }
