@@ -112,7 +112,7 @@ public class Principal {
         DateTimeFormatter formatoData = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
         NumberFormat formatoSalario = NumberFormat.getNumberInstance(
-                Locale.of("pt", "BR")
+            Locale.forLanguageTag("pt-BR")
         );
 
         formatoSalario.setMinimumFractionDigits(2);
@@ -190,8 +190,8 @@ public class Principal {
         imprimirTitulo("3.10", "Funcionários em ordem alfabética");
 
         funcionarios.stream()
-        .sorted(Comparator.comparing(Funcionario::getNome))
-        .forEach(funcionario ->
+            .sorted(Comparator.comparing(Funcionario::getNome))
+            .forEach(funcionario ->
                 imprimirFuncionario(funcionario, formatoData, formatoSalario)
         );
 
@@ -201,7 +201,7 @@ public class Principal {
             .reduce(BigDecimal.ZERO, BigDecimal::add);
 
         imprimirTitulo("3.11", "Total dos salários");
-        System.out.println("Total: " + formatoSalario.format(totalSalarios));
+        System.out.println("Total: R$ " + formatoSalario.format(totalSalarios));
 
         // 3.12 - Imprimir quantos salários mínimos ganha cada funcionário
         BigDecimal salarioMinimo = new BigDecimal("1212.00");
@@ -230,7 +230,7 @@ public class Principal {
             "Nome: " + funcionario.getNome()
             + " | Data de nascimento: "
             + funcionario.getDataNascimento().format(formatoData)
-            + " | Salário: "
+            + " | Salário: R$ "
             + formatoNumero.format(funcionario.getSalario())
             + " | Função: "
             + funcionario.getFuncao()
