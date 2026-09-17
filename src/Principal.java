@@ -119,15 +119,10 @@ public class Principal {
         formatoSalario.setMaximumFractionDigits(2);
 
         // 3.3 - Imprimir funcionários
-        System.out.println("\n--- Funcionários ---");
+        imprimirTitulo("3.3", "Funcionários");
 
         for (Funcionario funcionario : funcionarios) {
-            System.out.println(
-                    "Nome: " + funcionario.getNome()
-                    + " | Data de nascimento: " + funcionario.getDataNascimento().format(formatoData)
-                    + " | Salário: " + formatoSalario.format(funcionario.getSalario())
-                    + " | Função: " + funcionario.getFuncao()
-            );
+            imprimirFuncionario(funcionario, formatoData, formatoSalario);
         }
         
         // 3.4 - Aplicar aumento de 10%
@@ -146,18 +141,20 @@ public class Principal {
                 .collect(Collectors.groupingBy(Funcionario::getFuncao));
         
         // 3.6 - Imprimir funcionários agrupados por função
-        System.out.println("\n--- Funcionários agrupados por função ---");
+        imprimirTitulo("3.6", "Funcionários agrupados por função");
 
         for (Map.Entry<String, List<Funcionario>> entry : funcionariosPorFuncao.entrySet()) {
-            System.out.println("\nFunção: " + entry.getKey());
+            System.out.println();
+            System.out.println("Função: " + entry.getKey());
+            System.out.println("----------------------------------------");
 
             for (Funcionario funcionario : entry.getValue()) {
-            System.out.println("- " + funcionario.getNome());
+                System.out.println("- " + funcionario.getNome());
             }
         }
 
         // 3.8 - Imprimir funcionários que fazem aniversário nos meses 10 e 12
-        System.out.println("\n--- Aniversariantes dos meses 10 e 12 ---");
+        imprimirTitulo("3.8", "Aniversariantes dos meses 10 e 12");
 
         for (Funcionario funcionario : funcionarios) {
             int mesNascimento = funcionario.getDataNascimento().getMonthValue();
@@ -182,7 +179,7 @@ public class Principal {
                     LocalDate.now()
             ).getYears();
 
-            System.out.println("\n--- Funcionário com maior idade ---");
+            imprimirTitulo("3.9", "Funcionário com maior idade");
             System.out.println(
                     "Nome: " + funcionarioMaisVelho.getNome()
                     + " | Idade: " + idade + " anos"
@@ -190,24 +187,26 @@ public class Principal {
         }
 
         // 3.10 - Imprimir funcionários em ordem alfabética
-        System.out.println("\n--- Funcionários em ordem alfabética ---");
+        imprimirTitulo("3.10", "Funcionários em ordem alfabética");
 
         funcionarios.stream()
-                .sorted(Comparator.comparing(Funcionario::getNome))
-                .forEach(funcionario -> System.out.println(funcionario.getNome()));
+        .sorted(Comparator.comparing(Funcionario::getNome))
+        .forEach(funcionario ->
+                imprimirFuncionario(funcionario, formatoData, formatoSalario)
+        );
 
         // 3.11 - Imprimir o total dos salários
         BigDecimal totalSalarios = funcionarios.stream()
             .map(Funcionario::getSalario)
             .reduce(BigDecimal.ZERO, BigDecimal::add);
 
-        System.out.println("\n--- Total dos salários ---");
+        imprimirTitulo("3.11", "Total dos salários");
         System.out.println("Total: " + formatoSalario.format(totalSalarios));
 
         // 3.12 - Imprimir quantos salários mínimos ganha cada funcionário
         BigDecimal salarioMinimo = new BigDecimal("1212.00");
 
-        System.out.println("\n--- Salários mínimos por funcionário ---");
+        imprimirTitulo("3.12", "Salários mínimos por funcionário");
 
         for (Funcionario funcionario : funcionarios) {
             BigDecimal quantidadeSalariosMinimos = funcionario.getSalario()
@@ -220,5 +219,28 @@ public class Principal {
                     + " salários mínimos"
             );
         }
+    }
+
+    private static void imprimirFuncionario(
+        Funcionario funcionario,
+        DateTimeFormatter formatoData,
+        NumberFormat formatoNumero
+    ) {
+        System.out.println(
+            "Nome: " + funcionario.getNome()
+            + " | Data de nascimento: "
+            + funcionario.getDataNascimento().format(formatoData)
+            + " | Salário: "
+            + formatoNumero.format(funcionario.getSalario())
+            + " | Função: "
+            + funcionario.getFuncao()
+        );
+    }
+
+    private static void imprimirTitulo(String requisito, String titulo) {
+        System.out.println();
+        System.out.println("============================================================");
+        System.out.println("[" + requisito + "] " + titulo.toUpperCase());
+        System.out.println("============================================================");
     }
 }
