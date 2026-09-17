@@ -1,15 +1,15 @@
 import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.text.NumberFormat;
-import java.time.format.DateTimeFormatter;
-import java.util.Locale;
 import java.math.RoundingMode;
+import java.text.NumberFormat;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
-import java.time.Period;
-import java.util.Comparator;
 
 public class Principal {
     public static void main(String[] args) {
@@ -112,7 +112,7 @@ public class Principal {
         DateTimeFormatter formatoData = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
         NumberFormat formatoSalario = NumberFormat.getNumberInstance(
-                new Locale("pt", "BR")
+                Locale.of("pt", "BR")
         );
 
         formatoSalario.setMinimumFractionDigits(2);
@@ -141,17 +141,6 @@ public class Principal {
             funcionario.setSalario(novoSalario);
         }
 
-        // Teste para verificar o aumento
-        System.out.println("\n--- Salários após aumento de 10% ---");
-
-        for (Funcionario funcionario : funcionarios) {
-            System.out.println(
-                    funcionario.getNome()
-                    + ": "
-                    + formatoSalario.format(funcionario.getSalario())
-            );
-        }
-
         // 3.5 - Agrupar funcionários por função
         Map<String, List<Funcionario>> funcionariosPorFuncao = funcionarios.stream()
                 .collect(Collectors.groupingBy(Funcionario::getFuncao));
@@ -160,7 +149,7 @@ public class Principal {
         System.out.println("\n--- Funcionários agrupados por função ---");
 
         for (Map.Entry<String, List<Funcionario>> entry : funcionariosPorFuncao.entrySet()) {
-        System.out.println("\nFunção: " + entry.getKey());
+            System.out.println("\nFunção: " + entry.getKey());
 
             for (Funcionario funcionario : entry.getValue()) {
             System.out.println("- " + funcionario.getNome());
@@ -227,7 +216,7 @@ public class Principal {
             System.out.println(
                     funcionario.getNome()
                     + ": "
-                    + quantidadeSalariosMinimos
+                    + formatoSalario.format(quantidadeSalariosMinimos)
                     + " salários mínimos"
             );
         }
