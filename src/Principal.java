@@ -97,6 +97,9 @@ public class Principal {
                 "Gerente"
             )
         );
+
+        funcionarios.removeIf(funcionario -> funcionario.getNome().equals("João"));
+
         System.out.println("Quantidade de funcionários: " + funcionarios.size());
     }
 }
