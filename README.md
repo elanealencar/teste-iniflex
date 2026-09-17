@@ -33,8 +33,9 @@ src/
 ├── Pessoa.java
 ├── Funcionario.java
 └── Principal.java
-├── docs/
-│   └── resultado-console.png
+docs/
+└── resultado-console.png
+README.md
 ```
 
 - `Pessoa`: representa uma pessoa, contendo nome e data de nascimento.
