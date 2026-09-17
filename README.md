@@ -20,6 +20,12 @@ O projeto contempla os requisitos propostos no teste:
 - Cálculo do total dos salários;
 - Cálculo da quantidade de salários mínimos recebida por cada funcionário.
 
+## Resultado da execução
+
+A aplicação apresenta no console os resultados de cada requisito do desafio de forma organizada e identificada. Abaixo, uma representação visual de uma parte dos resultados no console
+
+![exemplo](docs/resultado-console.png)
+
 ## Estrutura do projeto
 
 ```text
@@ -27,6 +33,8 @@ src/
 ├── Pessoa.java
 ├── Funcionario.java
 └── Principal.java
+├── docs/
+│   └── resultado-console.png
 ```
 
 - `Pessoa`: representa uma pessoa, contendo nome e data de nascimento.
