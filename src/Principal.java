@@ -165,5 +165,20 @@ public class Principal {
             System.out.println("- " + funcionario.getNome());
             }
         }
+
+        // 3.8 - Imprimir funcionários que fazem aniversário nos meses 10 e 12
+        System.out.println("\n--- Aniversariantes dos meses 10 e 12 ---");
+
+        for (Funcionario funcionario : funcionarios) {
+            int mesNascimento = funcionario.getDataNascimento().getMonthValue();
+
+            if (mesNascimento == 10 || mesNascimento == 12) {
+                System.out.println(
+                        funcionario.getNome()
+                        + " - "
+                        + funcionario.getDataNascimento().format(formatoData)
+                );
+            }
+        }
     }
 }
