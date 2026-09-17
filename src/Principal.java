@@ -6,6 +6,8 @@ import java.text.NumberFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.math.RoundingMode;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Principal {
 
@@ -147,6 +149,21 @@ public class Principal {
                     + ": "
                     + formatoSalario.format(funcionario.getSalario())
             );
+        }
+
+        // 3.5 - Agrupar funcionários por função
+        Map<String, List<Funcionario>> funcionariosPorFuncao = funcionarios.stream()
+                .collect(Collectors.groupingBy(Funcionario::getFuncao));
+        
+        // 3.6 - Imprimir funcionários agrupados por função
+        System.out.println("\n--- Funcionários agrupados por função ---");
+
+        for (Map.Entry<String, List<Funcionario>> entry : funcionariosPorFuncao.entrySet()) {
+        System.out.println("\nFunção: " + entry.getKey());
+
+            for (Funcionario funcionario : entry.getValue()) {
+            System.out.println("- " + funcionario.getNome());
+            }
         }
     }
 }
