@@ -5,12 +5,14 @@ import java.util.List;
 import java.text.NumberFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
+import java.math.RoundingMode;
 
 public class Principal {
 
     public static void main(String[] args) {
         List<Funcionario> funcionarios = new ArrayList<>();
 
+        // 3.1 - Adicionar funcionários
         funcionarios.add(
             new Funcionario(
                 "Maria",
@@ -101,6 +103,7 @@ public class Principal {
             )
         );
 
+        // 3.2 - Remover funcionário com nome "João"
         funcionarios.removeIf(funcionario -> funcionario.getNome().equals("João"));
 
         DateTimeFormatter formatoData = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -112,6 +115,7 @@ public class Principal {
         formatoSalario.setMinimumFractionDigits(2);
         formatoSalario.setMaximumFractionDigits(2);
 
+        // 3.3 - Imprimir funcionários
         System.out.println("\n--- Funcionários ---");
 
         for (Funcionario funcionario : funcionarios) {
@@ -120,6 +124,28 @@ public class Principal {
                     + " | Data de nascimento: " + funcionario.getDataNascimento().format(formatoData)
                     + " | Salário: " + formatoSalario.format(funcionario.getSalario())
                     + " | Função: " + funcionario.getFuncao()
+            );
+        }
+        
+        // 3.4 - Aplicar aumento de 10%
+        BigDecimal percentualAumento = new BigDecimal("1.10");
+
+        for (Funcionario funcionario : funcionarios) {
+            BigDecimal novoSalario = funcionario.getSalario()
+                .multiply(percentualAumento)
+                .setScale(2, RoundingMode.HALF_UP);
+
+            funcionario.setSalario(novoSalario);
+        }
+
+        // Teste para verificar o aumento
+        System.out.println("\n--- Salários após aumento de 10% ---");
+
+        for (Funcionario funcionario : funcionarios) {
+            System.out.println(
+                    funcionario.getNome()
+                    + ": "
+                    + formatoSalario.format(funcionario.getSalario())
             );
         }
     }
